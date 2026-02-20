@@ -7,23 +7,21 @@ SERVER_URL = "http://localhost:8000/score-linkedin-post"
 # The text string you want the server to analyze.
 # Modify this variable to test different LinkedIn posts.
 TEST_POST_TEXT = """
-Everyone uses AI tools that fit their role best.
+Gemini said
+In the rapidly evolving tapestry of today’s dynamic digital ecosystem, it is crucial to harness the power of synergy to unlock new horizons. 🚀
 
-Devs work in Cursor or Copilot, synced with the repo.
-Designers prototype in ChatGPT, Midjourney, or something similar.
-PMs refine requirements in Claude, Perplexity, or yet another tool.
+As we navigate the complexities of this unparalleled era, we must remain mindful of how we leverage our robust frameworks to drive meaningful change. It is important to note that true excellence lies at the intersection of innovation and agility.
 
-Side effect:
-team context stops being a coherent state.
+The Multifaceted Dimensions of Success:
+Empowering Transformation: Diving deep into the nuances of mission-critical paradigms.
 
-The designer’s AI assumes the feature works one way.
-The dev’s AI, looking at the code, assumes it works another.
+Seamless Integration: Fostering a holistic culture that moves the needle through transformative insights.
 
-GitHub MCP solves this for the code, but it misses the decision logs, the design intent, and the why that lives outside the repo.
+In conclusion, it is imperative to remember that success is a journey, not a destination. By embracing a future-proof mindset, we can pave the way for sustainable growth and unprecedented impact. 💡
 
-I’m curious if you’ve run into this problem as well.
+What are your thoughts on this incredible paradigm shift? I would love to hear your valuable insights in the comments below! 👇
 
-Do you have a way to keep team context aligned when each role works with a different AI and a different slice of reality?
+#Innovation #Leadership #Empowerment #ThoughtLeadership #Tapestry #DigitalTransformation #Synergy #RobustSolutions
 """
 # TEST_POST_TEXT = "Hello everyone, excited to share my weekend plans!"
 # TEST_POST_TEXT = "Just published a new paper on quantum computing. Link in bio!"

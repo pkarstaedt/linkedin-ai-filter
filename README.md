@@ -16,7 +16,7 @@ Detect and hide AI-generated posts in your LinkedIn feed using either OpenAI or 
 
 - **Two detection providers**
   - **OpenAI API** – use OpenAI’s hosted model (default).
-  - **Local LLM (REST API)** – send posts to your own local/self‑hosted model.
+  - **Local LLM (REST API)** – send posts to your own local/self‑hosted model. For a quick example implementation, check `llm_server` and the `server.md` within.
 
 - **Test mode**
   - Shows AI scores for all posts.
@@ -54,8 +54,8 @@ Key files in this repo:
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/your-user/chrome-extension-no-ai-linkedin.git
-   cd chrome-extension-no-ai-linkedin
+   git clone https://github.com/pkarstaedt/linkedin-ai-filter.git
+   cd linkedin-ai-filter
    ```
 
 2. **Open Chrome extensions page**
@@ -66,7 +66,7 @@ Key files in this repo:
 3. **Load the unpacked extension**
 
    - Click **“Load unpacked”**.
-   - Select the folder containing this repo (e.g. `chrome-extension-no-ai-linkedin`).
+   - Select the folder containing this repo (e.g. `linkedin-ai-filter`).
 
 4. **Verify installation**
 
