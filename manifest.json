@@ -1,15 +1,26 @@
 {
   "manifest_version": 3,
   "name": "No AI LinkedIn Feed",
-  "description": "Detects AI-written LinkedIn posts using OpenAI and hides them based on your comfort threshold.",
+  "short_name": "No AI LinkedIn",
+  "description": "Detects AI-written LinkedIn posts using OpenAI or local LLMs and hides them based on your comfort threshold.",
   "version": "1.0.0",
+  "homepage_url": "https://github.com/pkarstaedt/linkedin-ai-filter",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "storage",
     "scripting"
   ],
   "host_permissions": [
-    "https://www.linkedin.com/*"
+    "https://www.linkedin.com/*",
+    "https://api.openai.com/*"
   ],
+  "action": {
+    "default_title": "No AI LinkedIn Feed Options"
+  },
   "background": {
     "service_worker": "background.js",
     "type": "module"

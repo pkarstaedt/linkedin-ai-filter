@@ -7,21 +7,38 @@ SERVER_URL = "http://localhost:8000/score-linkedin-post"
 # The text string you want the server to analyze.
 # Modify this variable to test different LinkedIn posts.
 TEST_POST_TEXT = """
-Gemini said
-In the rapidly evolving tapestry of today’s dynamic digital ecosystem, it is crucial to harness the power of synergy to unlock new horizons. 🚀
+I'll be honest — this might be controversial.
 
-As we navigate the complexities of this unparalleled era, we must remain mindful of how we leverage our robust frameworks to drive meaningful change. It is important to note that true excellence lies at the intersection of innovation and agility.
+But someone needs to say it.
 
-The Multifaceted Dimensions of Success:
-Empowering Transformation: Diving deep into the nuances of mission-critical paradigms.
+LinkedIn has an AI content problem. And it's — quite frankly — ruining the platform.
 
-Seamless Integration: Fostering a holistic culture that moves the needle through transformative insights.
+Here's what I mean — scroll through your feed right now. Go ahead. I'll wait.
 
-In conclusion, it is imperative to remember that success is a journey, not a destination. By embracing a future-proof mindset, we can pave the way for sustainable growth and unprecedented impact. 💡
+Notice anything? Every. Single. Post. Sounds. The. Same.
 
-What are your thoughts on this incredible paradigm shift? I would love to hear your valuable insights in the comments below! 👇
+The same cadence. The same structure. The same dramatic — almost theatrical — one-liner paragraphs designed to make you stop scrolling.
 
-#Innovation #Leadership #Empowerment #ThoughtLeadership #Tapestry #DigitalTransformation #Synergy #RobustSolutions
+And here's the kicker — none of it is real. It's all AI-generated. Every last word.
+
+Now — don't get me wrong — I'm not anti-technology. Far from it. But there's a difference between using AI as a tool and letting AI become your entire personality.
+
+The signs are everywhere:
+
+→ "I was sitting in a coffee shop when it hit me —"
+→ "Here's what 10 years in [industry] taught me —"
+→ "Most people won't tell you this — but —"
+→ Perfectly structured. Zero soul.
+
+We traded authenticity — the very thing that makes this platform valuable — for efficiency.
+
+And that — in my humble opinion — is a tragedy.
+
+Your voice matters. Your messy, imperfect, unpolished voice — that's what people actually want to hear.
+
+Not another AI-generated word salad dressed up as "thought leadership."
+
+Be human. That's it. That's the post.
 """
 # TEST_POST_TEXT = "Hello everyone, excited to share my weekend plans!"
 # TEST_POST_TEXT = "Just published a new paper on quantum computing. Link in bio!"
