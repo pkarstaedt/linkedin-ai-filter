@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>No AI LinkedIn Feed - Options</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 24px;
+        background: #0b141a;
+        color: #f3f6f8;
+      }
+      .container {
+        max-width: 520px;
+        margin: 0 auto;
+        background: #12202b;
+        border-radius: 12px;
+        padding: 24px 28px 28px;
+        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 0 4px;
+      }
+      p.subtitle {
+        margin: 0 0 20px;
+        font-size: 13px;
+        color: #8b9bae;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+        font-size: 13px;
+      }
+      input[type="password"],
+      input[type="number"] {
+        width: 100%;
+        padding: 9px 11px;
+        border-radius: 8px;
+        border: 1px solid #243545;
+        background: #0b141a;
+        color: #f3f6f8;
+        font-size: 13px;
+        box-sizing: border-box;
+      }
+      input[type="password"]:focus,
+      input[type="number"]:focus {
+        outline: none;
+        border-color: #2f81f7;
+        box-shadow: 0 0 0 1px rgba(47, 129, 247, 0.45);
+      }
+      .field {
+        margin-bottom: 18px;
+      }
+      .description {
+        font-size: 12px;
+        color: #75859b;
+        margin-top: 4px;
+      }
+      .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .checkbox-row input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+        accent-color: #2f81f7;
+      }
+      button {
+        margin-top: 10px;
+        background: #2f81f7;
+        color: white;
+        border: none;
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 8px 18px rgba(47, 129, 247, 0.35);
+      }
+      button:hover {
+        background: #2565c9;
+      }
+      #status {
+        margin-top: 10px;
+        font-size: 12px;
+        color: #7adb9a;
+        min-height: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>No AI LinkedIn Feed</h1>
+      <p class="subtitle">Choose how to score LinkedIn posts (OpenAI or a local LLM) and how aggressively to hide AI-generated posts.</p>
+
+      <div class="field">
+        <div class="checkbox-row">
+          <input type="checkbox" id="enabledToggle" checked />
+          <label for="enabledToggle">Enable extension on LinkedIn</label>
+        </div>
+        <div class="description">
+          Turn this off to temporarily disable all AI scoring and post modifications without removing the extension.
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="providerType">Detection provider</label>
+        <select id="providerType">
+          <option value="openai">OpenAI API</option>
+          <option value="local">Local LLM (custom REST API)</option>
+        </select>
+        <div class="description">
+          <strong>OpenAI API</strong>: use OpenAI's hosted models with your API key.<br />
+          <strong>Local LLM</strong>: send each post to a locally hosted or self-hosted model via a custom REST endpoint.
+        </div>
+      </div>
+
+      <div id="openaiSettings">
+        <div class="field">
+          <label for="apiKey">OpenAI API key</label>
+          <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" />
+          <div class="description">
+            Stored only in your browser`s extension storage and used solely to score LinkedIn posts.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="openaiModel">OpenAI model</label>
+          <input
+            type="text"
+            id="openaiModel"
+            placeholder="gpt-4o-mini"
+            autocomplete="off"
+          />
+          <div class="description">
+            Name of the OpenAI chat model to use (e.g. <code>gpt-4o-mini</code>). If left empty, the
+            default <code>gpt-4o-mini</code> will be used.
+          </div>
+        </div>
+      </div>
+
+      <div id="localSettings" style="display: none;">
+        <div class="field">
+          <label for="localLlmUrl">Local LLM API URL</label>
+          <input
+            type="text"
+            id="localLlmUrl"
+            placeholder="http://localhost:8000/score-linkedin-post"
+            autocomplete="off"
+          />
+          <div class="description">
+            The REST endpoint that will receive each LinkedIn post. The extension will send a JSON payload
+            as a <code>POST</code> request body and expects a JSON response.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="localLlmHeaders">Request headers (JSON)</label>
+          <textarea
+            id="localLlmHeaders"
+            rows="3"
+            style="width: 100%; resize: vertical; border-radius: 8px; border: 1px solid #243545; background: #0b141a; color: #f3f6f8; font-size: 13px; padding: 9px 11px; box-sizing: border-box;"
+          >{"x-api-key": "place your api key here"}</textarea>
+          <div class="description">
+            JSON object of headers to include in the request (e.g. API keys). Must be valid JSON.
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="localLlmBody">Request body template (JSON)</label>
+          <textarea
+            id="localLlmBody"
+            rows="5"
+            style="width: 100%; resize: vertical; border-radius: 8px; border: 1px solid #243545; background: #0b141a; color: #f3f6f8; font-size: 13px; padding: 9px 11px; box-sizing: border-box;"
+          >{
+  "linkedin_post_text" : %post_test%
+}</textarea>
+          <div class="description">
+            This JSON will be sent as the request body for each post. The placeholder
+            <code>%post_test%</code> will be replaced with the JSON-encoded text of the LinkedIn post.
+            Your local LLM endpoint should respond with JSON in the form:
+            <code>{ "linkedin_post_ai_score": VALUE }</code>, where <code>VALUE</code> is an integer
+            from 0 to 100.
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="comfortThreshold">Comfort threshold (1–100)</label>
+        <input
+          type="number"
+          id="comfortThreshold"
+          min="1"
+          max="100"
+          step="1"
+          placeholder="50"
+        />
+        <div class="description">
+          Posts with AI score greater than or equal to this value will be hidden. Lower values hide more posts; higher values hide fewer.
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="checkbox-row">
+          <input type="checkbox" id="testMode" />
+          <label for="testMode">Test mode</label>
+        </div>
+        <div class="description">
+          When enabled, hidden posts will also show the original text and the AI score for debugging.
+        </div>
+      </div>
+
+      <button id="save">Save settings</button>
+      <div id="status"></div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+  </html>
+

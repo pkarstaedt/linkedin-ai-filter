@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "No AI LinkedIn Feed",
+  "description": "Detects AI-written LinkedIn posts using OpenAI and hides them based on your comfort threshold.",
+  "version": "1.0.0",
+  "permissions": [
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/*"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html"
+}
+
