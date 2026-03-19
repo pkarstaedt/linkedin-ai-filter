@@ -1,6 +1,6 @@
-## No AI LinkedIn Feed – Chrome Extension
+## No AI LinkedIn Feed – Browser Extension (Chrome & Firefox)
 
-Detect and hide AI-generated posts in your LinkedIn feed using OpenAI, Anthropic, Gemini, or a locally hosted LLM, with full control over sensitivity and debug/test behavior.
+Detect and hide AI-generated posts in your LinkedIn feed using OpenAI, Anthropic, Gemini, or a locally hosted LLM, with full control over sensitivity and debug/test behavior. Available for both **Chrome** and **Firefox**.
 
 ---
 
@@ -36,7 +36,8 @@ Detect and hide AI-generated posts in your LinkedIn feed using OpenAI, Anthropic
 Key files in this repo:
 
 - `manifest.json` – Chrome Manifest V3, wires everything together.
-- `background.js` – service worker:
+- `firefox/manifest.json` – Firefox Manifest V3 variant (uses background scripts instead of service workers, includes gecko ID and data collection permissions).
+- `background.js` – background script (service worker on Chrome, event page on Firefox):
   - Loads settings from `chrome.storage.sync`.
   - Calls OpenAI, Anthropic, Gemini, **or** your local LLM.
   - Returns the AI score (0–100), threshold, test mode, and local LLM timeout flag.
@@ -49,9 +50,13 @@ Key files in this repo:
   - Configure provider API key/model (including custom model IDs for Anthropic and Gemini) or local endpoint.
   - Set threshold and test mode.
 
+The `firefox/` directory contains a complete copy of the extension adapted for Firefox. The JS and HTML files are identical; only `manifest.json` differs.
+
 ---
 
-## Installing the extension (Chrome)
+## Installing the extension
+
+### Chrome
 
 1. **Clone the repo**
 
@@ -67,13 +72,39 @@ Key files in this repo:
 
 3. **Load the unpacked extension**
 
-   - Click **“Load unpacked”**.
-   - Select the folder containing this repo (e.g. `linkedin-ai-filter`).
+   - Click **”Load unpacked”**.
+   - Select the root folder of this repo (e.g. `linkedin-ai-filter`).
 
 4. **Verify installation**
 
    - You should see “No AI LinkedIn Feed” in the list of extensions.
    - Click **Details** → ensure “Allow in incognito” / “Site access” are set as you prefer.
+
+### Firefox
+
+1. **Clone the repo** (if you haven't already)
+
+   ```bash
+   git clone https://github.com/pkarstaedt/linkedin-ai-filter.git
+   cd linkedin-ai-filter
+   ```
+
+2. **Load the extension temporarily** (for development/testing)
+
+   - Go to `about:debugging#/runtime/this-firefox` in the address bar.
+   - Click **”Load Temporary Add-on…”**.
+   - Select `firefox/manifest.json` from this repo.
+
+3. **Verify installation**
+
+   - You should see “No AI LinkedIn Feed” in the list of temporary extensions.
+   - Navigate to LinkedIn and grant the extension permission when prompted.
+
+4. **Install from Firefox Add-ons** (for regular use)
+
+   - Visit the extension's page on [Firefox Add-ons (AMO)](https://addons.mozilla.org) and install it directly.
+
+> **Note:** Firefox requires you to grant site permissions manually. After installing, navigate to LinkedIn, click the extension icon in the toolbar, and allow access to `linkedin.com`.
 
 ---
 
@@ -81,10 +112,9 @@ Key files in this repo:
 
 ### 1. Open the options page
 
-From `chrome://extensions`:
+**Chrome:** From `chrome://extensions`, find **No AI LinkedIn Feed** → click **Details** → click **Extension options**.
 
-- Find **No AI LinkedIn Feed** → click **Details**.
-- Click **Extension options**.
+**Firefox:** From `about:addons`, find **No AI LinkedIn Feed** → click **Preferences** (or **Options**).
 
 You’ll see:
 
@@ -111,7 +141,7 @@ You’ll see:
 
 3. **Model and scoring**
 
-   - `background.js` uses `gpt-4o-mini` with a system prompt that instructs the model to:
+   - `background.js` uses the configured OpenAI model with a system prompt that instructs the model to:
      - Return **only** an integer between 0 and 100.
      - Use 0 for “definitely human”, 100 for “definitely AI-assisted”.
 
@@ -247,12 +277,13 @@ Examples:
      - Sends `{ type: "EVALUATE_POST_TEXT", text }` to the background script.
 
 2. **Background script (`background.js`)**
+   - Runs as a service worker (Chrome) or background script (Firefox).
    - Reads settings via `getSettings()`:
-     - Provider type (`openai` or `local`).
-     - OpenAI API key, or local LLM URL/headers/body template.
+     - Provider type (`openai`, `anthropic`, `gemini`, or `local`).
+     - Provider API key/model, or local LLM URL/headers/body template.
      - Threshold and test mode.
    - Calls `getAiScore()` to:
-     - Either call OpenAI’s Chat Completions API.
+     - Call OpenAI, Anthropic, or Gemini’s API.
      - Or call your local LLM REST endpoint with the templated JSON body via `POST`.
    - Returns:
      - `score` (0–100, or `null` on failure).
@@ -270,7 +301,7 @@ Examples:
 
 ## Activating and using on LinkedIn
 
-1. Ensure the extension is **loaded** and **enabled** in `chrome://extensions`.
+1. Ensure the extension is **loaded** and **enabled** in `chrome://extensions` (Chrome) or `about:addons` (Firefox).
 2. Configure options as described above.
 3. Open or refresh a `https://www.linkedin.com/` tab.
 4. Scroll your feed:
@@ -285,5 +316,6 @@ Examples:
 
 - The extension relies on LinkedIn’s current DOM structure (`span[data-testid="expandable-text-box"]`); if LinkedIn changes this, selectors may need to be updated.
 - Local LLM calls are made with a **POST** request carrying a JSON body. Ensure your server expects JSON POST requests at the configured URL.
-- OpenAI usage will incur API costs based on your account and usage.
+- OpenAI, Anthropic, and Gemini usage will incur API costs based on your account and usage.
+- The Firefox version requires Firefox 140 or later.
 
