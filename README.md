@@ -1,6 +1,6 @@
 ## No AI LinkedIn Feed – Chrome Extension
 
-Detect and hide AI-generated posts in your LinkedIn feed using either OpenAI or a locally hosted LLM, with full control over sensitivity and debug/test behavior.
+Detect and hide AI-generated posts in your LinkedIn feed using OpenAI, Anthropic, Gemini, or a locally hosted LLM, with full control over sensitivity and debug/test behavior.
 
 ---
 
@@ -8,14 +8,16 @@ Detect and hide AI-generated posts in your LinkedIn feed using either OpenAI or 
 
 - **Automatic detection on LinkedIn feed**
   - Scans posts inside `span[data-testid="expandable-text-box"]`.
-  - Sends the post text to a detection backend (OpenAI or local LLM).
+  - Sends the post text to a detection backend (OpenAI, Anthropic, Gemini, or local LLM).
   - Receives an AI score between 0–100.
 
 - **Configurable threshold (1–100)**
   - Only posts with `AI score ≥ threshold` are treated as “AI-written”.
 
-- **Two detection providers**
+- **Four detection providers**
   - **OpenAI API** – use OpenAI’s hosted model (default).
+  - **Anthropic API** – use Claude models with your Anthropic key.
+  - **Google Gemini API** – use Gemini models with your Google AI key.
   - **Local LLM (REST API)** – send posts to your own local/self‑hosted model. For a quick example implementation, check `llm_server` and the `server.md` within.
 
 - **Test mode**
@@ -36,15 +38,15 @@ Key files in this repo:
 - `manifest.json` – Chrome Manifest V3, wires everything together.
 - `background.js` – service worker:
   - Loads settings from `chrome.storage.sync`.
-  - Calls OpenAI **or** your local LLM.
+  - Calls OpenAI, Anthropic, Gemini, **or** your local LLM.
   - Returns the AI score (0–100), threshold, test mode, and local LLM timeout flag.
 - `contentScript.js` – runs on `linkedin.com`:
   - Finds post spans.
   - Asks the background script for a score.
   - Applies hiding/labeling logic based on your settings.
 - `options.html` + `options.js` – options page:
-  - Choose provider (OpenAI / Local LLM).
-  - Configure API key or local endpoint.
+  - Choose provider (OpenAI / Anthropic / Gemini / Local LLM).
+  - Configure provider API key/model (including custom model IDs for Anthropic and Gemini) or local endpoint.
   - Set threshold and test mode.
 
 ---
@@ -87,7 +89,7 @@ From `chrome://extensions`:
 You’ll see:
 
 - **Detection provider** (dropdown)
-- **OpenAI settings** *or* **Local LLM settings**
+- **OpenAI, Anthropic, Gemini, or Local LLM settings**
 - **Comfort threshold (1–100)**
 - **Test mode** (checkbox)
 

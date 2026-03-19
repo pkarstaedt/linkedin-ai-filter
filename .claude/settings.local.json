@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory\\(\\(Get-Location\\).Path, \\(Join-Path \\(Split-Path \\(Get-Location\\).Path\\) ''firefox-linkedin-ai-filter.zip''\\)\\)\")",
+      "Bash(python \"F:/githubrepos/linkedin-ai-filter/make_zip.py\")",
+      "Bash(python -c \"import zipfile; zf = zipfile.ZipFile\\(''F:/githubrepos/linkedin-ai-filter/firefox-linkedin-ai-filter.zip''\\); print\\(''\\\\n''.join\\(zf.namelist\\(\\)\\)\\)\")",
+      "WebFetch(domain:extensionworkshop.com)",
+      "Bash(python -c \":*)"
+    ]
+  }
+}

@@ -5,6 +5,16 @@
   "description": "Detects AI-written LinkedIn posts using OpenAI, Anthropic, Gemini, or local LLMs and hides them based on your comfort threshold.",
   "version": "1.1.1",
   "homepage_url": "https://github.com/pkarstaedt/linkedin-ai-filter",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "no-ai-linkedin@pkarstaedt.com",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["websiteContent"],
+        "optional": []
+      }
+    }
+  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -23,8 +33,7 @@
     "default_title": "No AI LinkedIn Feed Options"
   },
   "background": {
-    "service_worker": "background.js",
-    "type": "module"
+    "scripts": ["background.js"]
   },
   "content_scripts": [
     {
@@ -39,4 +48,3 @@
   ],
   "options_page": "options.html"
 }
-
